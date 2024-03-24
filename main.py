@@ -1,7 +1,14 @@
 import pygame
 
 pygame.init()
-screen = pygame.display.set_mode((720, 900))
+
+# TODO: Adjust size of border/tiles/screen using variables for ease
+x = 10
+y = 10
+space = 1
+########################## SCREEN ################################
+# Screen_width = (30 * 14) + tilespacing + 40
+screen = pygame.display.set_mode((x*90.6, y*90))
 clock = pygame.time.Clock()
 running = True
 
@@ -18,16 +25,16 @@ while running:
     # RENDER YOUR GAME HERE
     # TODO: Creating a main player character
     BLUE = (0, 141, 218)
-    player = pygame.draw.rect(screen, BLUE, pygame.Rect(20, 800, 60, 30))
+    player = pygame.draw.rect(screen, BLUE, pygame.Rect(x*2, y*80, x*6, y*3))
 
     # TODO: Creating Game borders 
     WHITE = (255, 255, 255)
-    wall_left = pygame.draw.rect(screen, WHITE, pygame.Rect(0, 0, 20, 900))
-    wall_right = pygame.draw.rect(screen, WHITE, pygame.Rect(700, 0, 20, 900))
+    wall_left = pygame.draw.rect(screen, WHITE, pygame.Rect(0, 0, x*2, y*90))
+    wall_right = pygame.draw.rect(screen, WHITE, pygame.Rect(x*88.6, 0, x*2, y*90))
 
     # TODO: Add blue things onto the border
-    wall_left = pygame.draw.rect(screen, BLUE, pygame.Rect(0, 795, 20, 40))
-    wall_right = pygame.draw.rect(screen, BLUE, pygame.Rect(700, 795, 20, 40))
+    wall_left = pygame.draw.rect(screen, BLUE, pygame.Rect(0, y*79.5, x*2, y*4))
+    wall_right = pygame.draw.rect(screen, BLUE, pygame.Rect(x*88.6, y*79.5, x*2, y*4))
 
     # TODO: Add Tiles to break
     RED = (237, 25, 9)
@@ -35,7 +42,7 @@ while running:
     GREEN = (50,205,50)
     YELLOW = (255,255,0)
 
-    red_tiles = pygame.draw.rect(screen, RED, pygame.Rect(20, 200, 60, 30))
+    red_tiles = pygame.draw.rect(screen, RED, pygame.Rect(x*2, y*20, x*6, y*3))
 
     # flip() the display to put your work on screen
     pygame.display.flip()

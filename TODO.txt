@@ -1,4 +1,12 @@
-1. Colored tiles (14 x 4)
+1. Change the dimension of the borders to fit the size of the player tiles and borders
+    - use variable borders to easily adjust the value.
+        - x = 10, y = 10
+        - player.rect = 60, 30
+        - Screen_width = (60 * 14) + tilespacing + 40 = 906
+        
+
+Archive:
+Colored tiles (14 x 4)
     - tilespacing = 1px 
         - (2 x 13) = 26 px  // space between each tile
     - ((720 - 40) - 26)/ 14 = 46.17px
