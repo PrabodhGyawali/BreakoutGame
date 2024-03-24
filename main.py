@@ -29,7 +29,13 @@ while running:
     wall_left = pygame.draw.rect(screen, BLUE, pygame.Rect(0, 795, 20, 40))
     wall_right = pygame.draw.rect(screen, BLUE, pygame.Rect(700, 795, 20, 40))
 
+    # TODO: Add Tiles to break
+    RED = (237, 25, 9)
+    ORANGE = (255,69,0)
+    GREEN = (50,205,50)
+    YELLOW = (255,255,0)
 
+    red_tiles = pygame.draw.rect(screen, RED, pygame.Rect(20, 200, 60, 30))
 
     # flip() the display to put your work on screen
     pygame.display.flip()
