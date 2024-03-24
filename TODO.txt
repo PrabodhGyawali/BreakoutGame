@@ -1,1 +1,5 @@
-1. Create Main player character
+1. Create Game borders
+2. Adding blue thin on top of game borders:
+
+Interesting things to maybe look at:
+    pygame.sprite 
