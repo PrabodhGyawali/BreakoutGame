@@ -1,4 +1,5 @@
-1. Change dimensions of everything ensuring that tile.size = (50,20).
+1. Add Orange, Green, Yellow Tiles.
+
 
 Archive:  
 - use variable borders to easily adjust the value.
