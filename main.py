@@ -5,7 +5,7 @@ pygame.init()
 # TODO: Adjust size of border/tiles/screen using variables for ease
 x = 10
 y = 10
-space = 1
+space = x*0.2
 ########################## SCREEN ################################
 # Screen_width = (30 * 14) + tilespacing + 40
 screen = pygame.display.set_mode((x*90.6, y*90))
@@ -42,7 +42,13 @@ while running:
     GREEN = (50,205,50)
     YELLOW = (255,255,0)
 
-    red_tiles = pygame.draw.rect(screen, RED, pygame.Rect(x*2, y*20, x*6, y*3))
+    # TODO use loop to generate 14 red tiles with spacing of 1 px
+    red_tiles = []
+    # red tile has no spacing
+    red_tiles.append(pygame.draw.rect(screen, RED, pygame.Rect(x*2, y*20, x*6, y*3)))
+    for i in range(1, 14):
+        tile = pygame.draw.rect(screen, RED, pygame.Rect(x*2 + (i*x*6) + i*space, y*20, x*6, y*3))
+        red_tiles.append(tile)
 
     # flip() the display to put your work on screen
     pygame.display.flip()
