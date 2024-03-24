@@ -3,8 +3,7 @@ import pygame
 pygame.init()
 
 # TODO: Adjust size of border/tiles/screen using variables for ease
-x = 6.9
-y = 10
+x, y = 10, 10
 space = x*0.2
 ########################## SCREEN ################################
 # Screen_width = (30 * 14) + tilespacing + 40
@@ -25,7 +24,7 @@ while running:
     # RENDER YOUR GAME HERE
     # TODO: Creating a main player character
     BLUE = (0, 141, 218)
-    player = pygame.draw.rect(screen, BLUE, pygame.Rect(x*2, y*80, x*6, y*3))
+    player = pygame.draw.rect(screen, BLUE, pygame.Rect(x*2, y*80, x*4, y*2))
 
     # TODO: Creating Game borders 
     WHITE = (255, 255, 255)
@@ -45,14 +44,14 @@ while running:
     # TODO use loop to generate 14 red tiles with spacing of 1 px
     red_tiles = []
     # red tile has no spacing
-    red_tiles.append(pygame.draw.rect(screen, RED, pygame.Rect(x*2, y*20, x*6, y*3)))
+    red_tiles.append(pygame.draw.rect(screen, RED, pygame.Rect(x*2, y*20, x*4, y*2)))
     for i in range(1, 14):
-        tile = pygame.draw.rect(screen, RED, pygame.Rect(x*2 + (i*x*6) + i*space, y*20, x*6, y*3))
+        tile = pygame.draw.rect(screen, RED, pygame.Rect(x*2 + (i*x*6) + i*space, y*20, x*4, y*2))
         red_tiles.append(tile)
     # second row of red tiles
-    red_tiles.append(pygame.draw.rect(screen, RED, pygame.Rect(x*2, y*23 + space, x*6, y*3)))
+    red_tiles.append(pygame.draw.rect(screen, RED, pygame.Rect(x*2, y*23 + space, x*4, y*2)))
     for i in range(1, 14):
-        tile = pygame.draw.rect(screen, RED, pygame.Rect(x*2 + (i*x*6) + i*space, y*23 + space, x*6, y*3))
+        tile = pygame.draw.rect(screen, RED, pygame.Rect(x*2 + (i*x*6) + i*space, y*23 + space, x*4, y*2))
         red_tiles.append(tile)
     
 
@@ -64,14 +63,11 @@ while running:
     #     tile = pygame.draw.rect(screen, RED, pygame.Rect(x*2 + (i*x*6) + i*space, y*20, x*6, y*3))
     #     red_tiles.append(tile)
 
-    
 
     # flip() the display to put your work on screen
     pygame.display.flip()
 
     # limit FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
-    clock.tick(60) # limits FPS to 60
+    clock.tick(60) 
 
 pygame.quit()

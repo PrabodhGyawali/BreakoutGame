@@ -1,15 +1,20 @@
-1. Use Loop to generate 14 red tiles
+1. Change the height of the tiles
 
-2. Check dimensions and whether tile sizing seems to match:
-    (reference image dims) = (442, 638) => ratio w/h => 0.69
-    current w/h ration => 1.006
-        -> change the value of x and height of the tiles
+2. Fix the discretization issue with borders.
+    - https://www.pygame.org/docs/tut/SurfarrayIntro.html
+    - Learn about SurfArray in numpy
+        - Imagine a 3D array
+            - a 2D screen of pixel by pixel
+            - where there is an RGB tuple within the 2D array
 
+3. Change dimensions to ensure values are of type integer.
 
 Archive:
+- Width to heigh ratio = 0.69
+    
 - use variable borders to easily adjust the value.
-        - x = 10, y = 10
-        - player = 60, 30
+        - x = 6.9, y = 10
+        - player = 2
         - Screen = 906, 900
         - Colored tiles (14 x 4)
             - tilespacing = 1px 
