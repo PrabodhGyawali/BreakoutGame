@@ -3,7 +3,7 @@ import pygame
 pygame.init()
 
 # TODO: Adjust size of border/tiles/screen using variables for ease
-x = 10
+x = 6.9
 y = 10
 space = x*0.2
 ########################## SCREEN ################################
@@ -49,6 +49,22 @@ while running:
     for i in range(1, 14):
         tile = pygame.draw.rect(screen, RED, pygame.Rect(x*2 + (i*x*6) + i*space, y*20, x*6, y*3))
         red_tiles.append(tile)
+    # second row of red tiles
+    red_tiles.append(pygame.draw.rect(screen, RED, pygame.Rect(x*2, y*23 + space, x*6, y*3)))
+    for i in range(1, 14):
+        tile = pygame.draw.rect(screen, RED, pygame.Rect(x*2 + (i*x*6) + i*space, y*23 + space, x*6, y*3))
+        red_tiles.append(tile)
+    
+
+    
+    # 
+    # orange_tiles = []
+    # orange_tiles.append(pygame.draw.rect(screen, ORANGE, pygame.Rect(x*2, y*20 + space, x*6, y*3)))
+    # for i in range(1, 14):
+    #     tile = pygame.draw.rect(screen, RED, pygame.Rect(x*2 + (i*x*6) + i*space, y*20, x*6, y*3))
+    #     red_tiles.append(tile)
+
+    
 
     # flip() the display to put your work on screen
     pygame.display.flip()

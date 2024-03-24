@@ -1,5 +1,9 @@
 1. Use Loop to generate 14 red tiles
-    
+
+2. Check dimensions and whether tile sizing seems to match:
+    (reference image dims) = (442, 638) => ratio w/h => 0.69
+    current w/h ration => 1.006
+        -> change the value of x and height of the tiles
 
 
 Archive:
