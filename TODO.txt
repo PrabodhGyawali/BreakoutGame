@@ -1,24 +1,18 @@
-1. Change the height of the tiles
+1. Change dimensions of everything ensuring that tile.size = (50,20).
 
-2. Fix the discretization issue with borders.
-    - https://www.pygame.org/docs/tut/SurfarrayIntro.html
-    - Learn about SurfArray in numpy
-        - Imagine a 3D array
-            - a 2D screen of pixel by pixel
-            - where there is an RGB tuple within the 2D array
-
-3. Change dimensions to ensure values are of type integer.
-
-Archive:
-- Width to heigh ratio = 0.69
-    
+Archive:  
 - use variable borders to easily adjust the value.
-        - x = 6.9, y = 10
+        - x = 10, y = 10 // MUST BE AN INTEGER value
         - player = 2
         - Screen = 906, 900
         - Colored tiles (14 x 4)
             - tilespacing = 1px 
+            - tile.size() = (4,2)
 
 
 Interesting things to maybe look at:
-    pygame.sprite 
+    - pygame.sprite 
+    - Learn about SurfArray in numpy {3D matrix stuff --> powerful tool for image recognition software and ML training}
+        - Imagine a 3D array
+            - a 2D screen of pixel by pixel
+            - where there is an RGB tuple within the 2D array
