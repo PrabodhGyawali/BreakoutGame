@@ -1,8 +1,11 @@
+1. Fix glitches when holding key down
+2. Create a circle 
+    
+
+Archive: 
 2. Understanding the loop sequence and how the game runs
     - pygame.display.flip()
-    - pygame.time.delay(20)
-
-Archive:  
+    - pygame.time.delay(20) 
 - tile_array[j].append(pygame.draw.rect(screen, COLORS[j], pygame.Rect(
                     x*1 + (i*x*4) + i*space,
                     y*20 + k*x*1.5 + k*space +2*j*x*1.5 + 2*j*space,    // k -> 2 rows with same color // j -> different colors
