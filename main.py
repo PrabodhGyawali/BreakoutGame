@@ -5,6 +5,7 @@ pygame.init()
 # TODO: Adjust size of border/tiles/screen using variables for ease
 x, y = 10, 10
 space = x*0.4
+movex = 0
 ########################## SCREEN ################################
 # Screen_width = (30 * 14) + tilespacing + 40
 screen = pygame.display.set_mode((x*63.2, y*90))
@@ -24,7 +25,7 @@ while running:
     # RENDER YOUR GAME HERE
     # TODO: Creating a main player character
     BLUE = (0, 141, 218)
-    player = pygame.draw.rect(screen, BLUE, pygame.Rect(x*2, y*80, x*3.5, y*1.5))
+    player = pygame.draw.rect(screen, BLUE, pygame.Rect(x*2 + movex, y*80, x*3.5, y*1.5))
 
     # TODO: Creating Game borders 
     WHITE = (255, 255, 255)
@@ -50,12 +51,20 @@ while running:
                     x*4, 
                     y*1.5)))
                 
-        
+    # Game Functionality
+    if event.type == pygame.KEYDOWN:
+        key=pygame.key.name(event.key)
+        if key == "right":
+            movex +=5
+        if key == "left":
+            movex -=5 
         
 
-
-    # flip() the display to put your work on screen
+        pygame.display.flip()
+        pygame.time.delay(20)
+    # Updates screen
     pygame.display.flip()
+
 
     # limit FPS to 60
     clock.tick(60) 

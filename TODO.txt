@@ -1,7 +1,14 @@
-1. Add Orange, Green, Yellow Tiles.
-
+2. Understanding the loop sequence and how the game runs
+    - pygame.display.flip()
+    - pygame.time.delay(20)
 
 Archive:  
+- tile_array[j].append(pygame.draw.rect(screen, COLORS[j], pygame.Rect(
+                    x*1 + (i*x*4) + i*space,
+                    y*20 + k*x*1.5 + k*space +2*j*x*1.5 + 2*j*space,    // k -> 2 rows with same color // j -> different colors
+                    x*4, 
+                    y*1.5)))
+
 - use variable borders to easily adjust the value.
         - x = 10, y = 10 // MUST BE AN INTEGER value
         - player = 2
