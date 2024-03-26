@@ -1,5 +1,5 @@
-1. Fix glitches when holding key down
-2. Create a circle 
+1. Make sure all objects created outside of game render function in a another file holding all the objects.
+3. Use numpy to do quick circle coordinate changing operations
     
 
 Archive: 
