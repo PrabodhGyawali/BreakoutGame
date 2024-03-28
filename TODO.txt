@@ -1,6 +1,6 @@
-1. Make sure all objects created outside of game render function in a another file holding all the objects.
-3. Use numpy to do quick circle coordinate changing operations
-    
+1. Make pong move:
+    - add velocity vector
+2. Make pong collide    
 
 Archive: 
 2. Understanding the loop sequence and how the game runs

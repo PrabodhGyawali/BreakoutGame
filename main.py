@@ -15,7 +15,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    
+
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("black")
 
@@ -33,7 +33,7 @@ while running:
     for i in range(4):
         for tile in tile_array[i]:
             pygame.draw.rect(screen, COLORS[i], tile)
-   
+
     ######################## Game Functionality #########################
     # Key Events
     if event.type == pygame.KEYDOWN:
@@ -44,14 +44,19 @@ while running:
         if key == "left":
             if player.left > 10:
                 player.move_ip(-5, 0)
-        
-    # Collision detector
+    
+    # Move Pong:
     pygame.draw.rect(screen, WHITE, pong)
-        
+    pong.move_ip(pong_velocity)
 
+    # Bouncing off objects
+    for object in objects:
+        if pong.colliderect(object):
+            pong_velocity *= -1
     # Updates screen
     pygame.display.flip()
     # limit FPS to 60
-    clock.tick(60) 
+    clock.tick(40)
 
 pygame.quit()
+
