@@ -1,5 +1,6 @@
 import pygame
 import numpy
+import random
 
 # Custom Modules
 from assets import *
@@ -7,8 +8,8 @@ from physics import *
 
 pygame.init()
 ########################## SCREEN ################################
-# Screen_width = (30 * 14) + tilespacing + 40
-screen = pygame.display.set_mode((x*63.2, y*90))
+DIMS = (x*63.2, y*90)
+screen = pygame.display.set_mode(DIMS)
 clock = pygame.time.Clock()
 running = True
 
@@ -25,7 +26,6 @@ while running:
     # Game borders 
     pygame.draw.rect(screen, WHITE, wall_left)
     pygame.draw.rect(screen, WHITE, wall_right)
-
     # Game border blue
     pygame.draw.rect(screen, BLUE, pygame.Rect(0, y*79.5, x*1, y*3))
     pygame.draw.rect(screen, BLUE, pygame.Rect(x*62.2, y*79.5, x*1, y*3))
@@ -34,37 +34,40 @@ while running:
     for i in range(4):
         for tile in tile_array[i]:
             pygame.draw.rect(screen, COLORS[i], tile)
-
+    
+    # Pong Ball
+    pygame.draw.rect(screen, WHITE, pong)
+    pong.move_ip(pong_velocity)
     ######################## Game Functionality #########################
     # Key Events
     if event.type == pygame.KEYDOWN:
-        key=pygame.key.name(event.key)
-        if key == "right":
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_RIGHT]:
             if player.right < 62.2*x:
                 player.move_ip(5, 0)
-        if key == "left":
+        if keys[pygame.K_LEFT]:
             if player.left > 10:
                 player.move_ip(-5, 0)
-    
-    # Move Pong:
-    pygame.draw.rect(screen, WHITE, pong)
-    pong.move_ip(pong_velocity)
 
-    # Bouncing off objects
-    
+    # Bouncing off objects / Breaking tiles
     for object in objects:
         if pong.colliderect(object):
             # collision point P
             P = (pong.x, pong.y)
-            # Check if the surface is vertical or horizontal
-            if surface_check(P, object) == 1:
-                pong_velocity[1] *= -1
-                print("top/bottom")
-            elif surface_check(P, object) == 2:
-                pong_velocity[0] *= -1 
-                print("left/right")
-            else:
-                print("neither")
+            # Bounce of object by changing velocity
+            bounce(P, object, pong_velocity)
+            for tiles in tile_array:
+                if object in tiles:
+                    # Check if previous collision was with paddle
+                    tiles.remove(object)
+                    objects.remove(object)
+                    print("tile removed")
+    
+    # Respawn ball if it goes off boundary
+    # Move Pong:
+    if pong.y > DIMS[1]:
+        pong.x, pong.y = generate_coordinate()
+    
             
     # Updates screen
     pygame.display.flip()
