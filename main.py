@@ -3,6 +3,7 @@ import numpy
 
 # Custom Modules
 from assets import *
+from physics import *
 
 pygame.init()
 ########################## SCREEN ################################
@@ -50,13 +51,25 @@ while running:
     pong.move_ip(pong_velocity)
 
     # Bouncing off objects
+    
     for object in objects:
         if pong.colliderect(object):
-            pong_velocity *= -1
+            # collision point P
+            P = (pong.x, pong.y)
+            # Check if the surface is vertical or horizontal
+            if surface_check(P, object) == 1:
+                pong_velocity[1] *= -1
+                print("top/bottom")
+            elif surface_check(P, object) == 2:
+                pong_velocity[0] *= -1 
+                print("left/right")
+            else:
+                print("neither")
+            
     # Updates screen
     pygame.display.flip()
     # limit FPS to 60
-    clock.tick(40)
+    clock.tick(60)
 
 pygame.quit()
 

@@ -4,7 +4,7 @@ import numpy as np
 # Constants
 x, y = 10, 10
 space = 4
-pong_velocity = np.array((2, 2))
+pong_velocity = pygame.Vector2(2, -2)
 
 BLUE, WHITE, RED, ORANGE, GREEN, YELLOW  = (0, 141, 218), (255, 255, 255), (237,25,9), (242,133,0), (50,205,50), (255,255,0)
 COLORS = (RED, ORANGE, GREEN, YELLOW, BLUE, WHITE)

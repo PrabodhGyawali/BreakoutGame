@@ -1,6 +1,15 @@
-1. Make pong move:
-    - add velocity vector
-2. Make pong collide    
+1. Create a ball bouncing algorithm:
+    - makes a perpendicular with colliding surface at point of collision (P)
+    - Takes into account angle for ball bouncing (incident angle etc)
+    - Check if collision point is straight line
+        - calculate angle between line path and object surface line
+        - reflect ball as if it is light
+    - If collision point is an edge:
+        pong_velocity *= -1
+
+    - https://stackoverflow.com/questions/76687263/pygame-calculate-angle-of-reflection-of-collision-betweeen-masks
+        
+
 
 Archive: 
 2. Understanding the loop sequence and how the game runs
