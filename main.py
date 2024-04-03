@@ -8,10 +8,15 @@ from physics import *
 
 pygame.init()
 ########################## SCREEN ################################
-DIMS = (x*63.2, y*90)
 screen = pygame.display.set_mode(DIMS)
 clock = pygame.time.Clock()
+
+# Game Variables
 running = True
+previous_collision_is_paddle = False
+score = 0
+lives = 3
+high_score = get_high_score()
 
 while running:
     for event in pygame.event.get():
@@ -56,20 +61,30 @@ while running:
             P = (pong.x, pong.y)
             # Bounce of object by changing velocity
             bounce(P, object, pong_velocity)
+            if object == player:
+                previous_collision_is_paddle = True
             for tiles in tile_array:
                 if object in tiles:
-                    # Check if previous collision was with paddle
-                    tiles.remove(object)
-                    objects.remove(object)
-                    print("tile removed")
+                    if previous_collision_is_paddle:
+                        tiles.remove(object)
+                        objects.remove(object)
+                        previous_collision_is_paddle = False
+                        score +=1
+                        print(score)
     
     # Respawn ball if it goes off boundary
     # Move Pong:
     if pong.y > DIMS[1]:
         pong.x, pong.y = generate_coordinate()
+        lives -= 1
     
-            
+    
     # Updates screen
+    # Text rendering:
+    update_text(screen, score, score_coord)
+    update_text(screen, high_score, high_score_coord) 
+    update_lives(screen, lives, lives_coord)
+    
     pygame.display.flip()
     # limit FPS to 60
     clock.tick(60)

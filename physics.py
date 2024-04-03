@@ -17,3 +17,7 @@ def generate_coordinate():
     x = random.randint(100, 500)
     y = random.randint(500, 600)
     return (x, y)
+
+def get_high_score():
+    with open("high_score.txt", "r") as f:
+        return f.read()

@@ -1,11 +1,13 @@
 import pygame
 import numpy as np
 
+pygame.init()
 # Constants
 x, y = 10, 10
+DIMS = (x*63.2, y*90)
 space = 4
 pong_velocity = pygame.Vector2(2, -2)
-
+BLACK = (0, 0, 0)
 BLUE, WHITE, RED, ORANGE, GREEN, YELLOW  = (0, 141, 218), (255, 255, 255), (237,25,9), (242,133,0), (50,205,50), (255,255,0)
 COLORS = (RED, ORANGE, GREEN, YELLOW, BLUE, WHITE)
 objects = []
@@ -34,3 +36,22 @@ pong =  pygame.Rect(400, 400, 5, 5)
 objects.append(wall_left)
 objects.append(wall_right)
 objects.append(player)
+
+# Text rendering
+font = pygame.font.Font("pixelar.ttf", 50)
+score_coord = (125, 150)
+lives_coord = (400, 100)
+high_score_coord = (500, 150)
+
+def update_text(screen, score, coord):
+    score_text = ('000' + str(score))[-3:]
+    text = font.render(score_text, True, WHITE, BLACK)
+    textRect = text.get_rect()
+    textRect.center = coord
+    screen.blit(text, textRect)
+
+def update_lives(screen, lives, coord):
+    text = font.render(str(lives), True, WHITE, BLACK)
+    textRect = text.get_rect()
+    textRect.center = coord
+    screen.blit(text, textRect)
