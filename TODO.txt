@@ -1,14 +1,16 @@
-1. Fix issue with ball leaving border under high velocity
-2. Fix issues with ball bouncing
-
-NOTE: Tuples are immutable unlike lists
-
+1. Test for Border-top bouncing
+2. Test for Breakout scenario
+    - Pong.move_ip(pong_velocity created)
+3. Allow streak to be added to score tool       # Done
+4. Make size of the paddle smaller to make game harder
+5. Find a way to increase the velocity of the ball in a slower way
+6. Add a velocity max
 
 Unsuccessful: Create a ball bouncing algorithm to bounce of many different angles
     - https://stackoverflow.com/questions/76687263/pygame-calculate-angle-of-reflection-of-collision-betweeen-masks
 
 Archive: 
-1. 
+1. NOTE: Tuples are immutable unlike lists
 2. Understanding the loop sequence and how the game runs
     - pygame.display.flip()
     - pygame.time.delay(20) 

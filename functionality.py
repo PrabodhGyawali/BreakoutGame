@@ -6,7 +6,6 @@ from assets import *
 # Angles and Reflection:
 def bounce(point, surface: pygame.Rect, veloctity: pygame.Vector2):#, surface: pygame.Rect):
     # Check if point is in any of the surfaces.
-    print(veloctity)
     # print(surface.top, surface.bottom, surface.left, surface.right)
     if abs(point[0] - surface.left) < 2 and abs(point[0] - surface.right) < 2:
         veloctity *= -1
@@ -27,15 +26,15 @@ def get_high_score():
     with open("high_score.txt", "r") as f:
         return f.read()
     
-def get_score_gained(tile: pygame.Rect):
+def get_score_gained(tile: pygame.Rect, streak):
     if tile in red_tiles:
-        return 4
+        return 4 + streak
     if tile in orange_tiles:
-        return 3
+        return 3 + streak
     if tile in green_tiles:
-        return 2
+        return 2 + streak
     if tile in yellow_tiles:
-        return 1
+        return 1 + streak
     
 def accelerate(velocity: pygame.Vector2):
     velocity *= 2

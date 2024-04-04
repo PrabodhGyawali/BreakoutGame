@@ -13,7 +13,7 @@ clock = pygame.time.Clock()
 
 # Game Variables
 running = True
-previous_collision_is_paddle = False
+can_penetrate_tile = False
 score = 0
 streak = 0
 accelerate_count = 0    # Check whether to increase ball speed
@@ -29,7 +29,7 @@ while running:
     screen.fill("black")
 
     # RENDER YOUR GAME HERE
-    pygame.draw.rect(screen, BLUE, player)
+    pygame.draw.rect(screen, BLUE, player_start)
     # Game borders 
     pygame.draw.rect(screen, WHITE, wall_left)
     pygame.draw.rect(screen, WHITE, wall_right)
@@ -69,17 +69,17 @@ while running:
             P = (pong.x, pong.y)
             # Bounce of object by changing velocity
             bounce(P, object, pong_velocity)
-            if object == player:
-                previous_collision_is_paddle = True
+            if object == player or object == border_top:
+                can_penetrate_tile = True
             for tiles in tile_array:
                 if object in tiles:
-                    if previous_collision_is_paddle:
-                        score += get_score_gained(object) 
+                    if can_penetrate_tile:
+                        score += get_score_gained(object, streak) 
                         streak += 1 
                         accelerate_count +=1
                         tiles.remove(object)
                         objects.remove(object)
-                        previous_collision_is_paddle = False
+                        can_penetrate_tile = False
                         # TODO: Score accumulates if there is a streak
                         print(score)
     
