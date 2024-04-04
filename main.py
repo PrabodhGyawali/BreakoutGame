@@ -4,7 +4,7 @@ import random
 
 # Custom Modules
 from assets import *
-from physics import *
+from functionality import *
 
 pygame.init()
 ########################## SCREEN ################################
@@ -15,7 +15,9 @@ clock = pygame.time.Clock()
 running = True
 previous_collision_is_paddle = False
 score = 0
-lives = 3
+streak = 0
+accelerate_count = 0    # Check whether to increase ball speed
+lives = 1
 high_score = get_high_score()
 
 while running:
@@ -31,6 +33,7 @@ while running:
     # Game borders 
     pygame.draw.rect(screen, WHITE, wall_left)
     pygame.draw.rect(screen, WHITE, wall_right)
+    pygame.draw.rect(screen, WHITE, border_top)
     # Game border blue
     pygame.draw.rect(screen, BLUE, pygame.Rect(0, y*79.5, x*1, y*3))
     pygame.draw.rect(screen, BLUE, pygame.Rect(x*62.2, y*79.5, x*1, y*3))
@@ -39,6 +42,11 @@ while running:
     for i in range(4):
         for tile in tile_array[i]:
             pygame.draw.rect(screen, COLORS[i], tile)
+    
+    # Loop generating colored side tiles
+    for i in range(8):
+        pygame.draw.rect(screen, side_tiles_colors[i], side_tiles[i])
+        
     
     # Pong Ball
     pygame.draw.rect(screen, WHITE, pong)
@@ -66,18 +74,28 @@ while running:
             for tiles in tile_array:
                 if object in tiles:
                     if previous_collision_is_paddle:
+                        score += get_score_gained(object) 
+                        streak += 1 
+                        accelerate_count +=1
                         tiles.remove(object)
                         objects.remove(object)
                         previous_collision_is_paddle = False
-                        score +=1
+                        # TODO: Score accumulates if there is a streak
                         print(score)
     
     # Respawn ball if it goes off boundary
     # Move Pong:
     if pong.y > DIMS[1]:
         pong.x, pong.y = generate_coordinate()
-        lives -= 1
+        lives += 1
+        streak = 0
+        accelerate_count = 0
+        pong_velocity = (2, 2)
     
+    # Accelerate Pong after every 10 point streak
+    if accelerate_count > 1:
+        accelerate(pong_velocity)   
+        accelerate_count = 0 
     
     # Updates screen
     # Text rendering:

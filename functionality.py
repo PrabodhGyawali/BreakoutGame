@@ -1,6 +1,7 @@
 import pygame
 import math
 import random
+from assets import *
 
 # Angles and Reflection:
 def bounce(point, surface: pygame.Rect, veloctity):#, surface: pygame.Rect):
@@ -21,3 +22,16 @@ def generate_coordinate():
 def get_high_score():
     with open("high_score.txt", "r") as f:
         return f.read()
+    
+def get_score_gained(tile: pygame.Rect):
+    if tile in red_tiles:
+        return 4
+    if tile in orange_tiles:
+        return 3
+    if tile in green_tiles:
+        return 2
+    if tile in yellow_tiles:
+        return 1
+    
+def accelerate(velocity: pygame.Vector2):
+    velocity *= 2

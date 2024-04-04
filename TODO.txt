@@ -1,5 +1,5 @@
-1. Make sure that only one tile breaks at a time.
-2. Create Score to count
+1. Create a top border, create color on the left and right walls
+2. Make sure ball is visible despite the blit background
 
 
 
