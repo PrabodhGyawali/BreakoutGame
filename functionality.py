@@ -4,13 +4,17 @@ import random
 from assets import *
 
 # Angles and Reflection:
-def bounce(point, surface: pygame.Rect, veloctity):#, surface: pygame.Rect):
+def bounce(point, surface: pygame.Rect, veloctity: pygame.Vector2):#, surface: pygame.Rect):
     # Check if point is in any of the surfaces.
-    # print(point)
+    print(veloctity)
     # print(surface.top, surface.bottom, surface.left, surface.right)
+    if abs(point[0] - surface.left) < 2 and abs(point[0] - surface.right) < 2:
+        veloctity *= -1
     if abs(point[0] - surface.left) < 2 or abs(point[0] - surface.right) < 2: # horizontal surface
         veloctity[0] *= -1
     else: #abs(point[1] - surface.top) < 2 or abs(point[1] - surface.bottom) < 2:
+        # TOFIX: Line is creating TypeError: 'tuple' object does not support item assignment
+        print("reached line 16")
         veloctity[1] *= -1
     
 

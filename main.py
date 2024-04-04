@@ -85,12 +85,15 @@ while running:
     
     # Respawn ball if it goes off boundary
     # Move Pong:
+    if pong.x > 62.2*x or pong.x < 1*x:
+        pong_velocity[0] *= -1
+
     if pong.y > DIMS[1]:
         pong.x, pong.y = generate_coordinate()
         lives += 1
         streak = 0
         accelerate_count = 0
-        pong_velocity = (2, 2)
+        pong_velocity = [2, 2]
     
     # Accelerate Pong after every 10 point streak
     if accelerate_count > 1:

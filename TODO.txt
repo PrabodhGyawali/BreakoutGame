@@ -1,6 +1,7 @@
-1. Create a top border, create color on the left and right walls
-2. Make sure ball is visible despite the blit background
+1. Fix issue with ball leaving border under high velocity
+2. Fix issues with ball bouncing
 
+NOTE: Tuples are immutable unlike lists
 
 
 Unsuccessful: Create a ball bouncing algorithm to bounce of many different angles

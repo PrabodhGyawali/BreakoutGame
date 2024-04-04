@@ -6,7 +6,7 @@ pygame.init()
 x, y = 10, 10
 DIMS = (x*63.2, y*90)
 space = 4
-pong_velocity = pygame.Vector2(2, 2)
+pong_velocity = np.array((2, 2))
 BLACK = (0, 0, 0)
 BLUE, WHITE, RED, ORANGE, GREEN, YELLOW  = (0, 141, 218), (255, 255, 255), (237,25,9), (242,133,0), (50,205,50), (255,255,0)
 COLORS = (RED, ORANGE, GREEN, YELLOW, BLUE, WHITE)
@@ -48,8 +48,6 @@ for i in range(4):
 
 pong =  pygame.Rect(400, 400, 5, 5)
 
-objects.append(wall_left)
-objects.append(wall_right)
 objects.append(player)
 objects.append(border_top)
 
