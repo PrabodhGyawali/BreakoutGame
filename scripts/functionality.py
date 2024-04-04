@@ -23,7 +23,7 @@ def generate_coordinate():
     return (x, y)
 
 def get_high_score():
-    with open("high_score.txt", "r") as f:
+    with open("../misc/high_score.txt", "r") as f:
         return f.read()
     
 def get_score_gained(tile: pygame.Rect, streak):

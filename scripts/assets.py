@@ -54,7 +54,7 @@ objects.append(player_start)
 objects.append(border_top)
 
 # Text rendering
-font = pygame.font.Font("pixel-loot.ttf", 50)
+font = pygame.font.Font("../misc/pixel-loot.ttf", 50)
 score_coord = (100, 190)
 lives_coord = (400, 140)
 high_score_coord = (500, 190)
