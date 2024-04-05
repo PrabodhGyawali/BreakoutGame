@@ -1,9 +1,5 @@
-1. After paddle bounce, only one tile bounce
-    - Same with tile until is_penetrate is true
-2. Create store function when assets are not drawn to screen
-    - or remove from objects list
-
-3. Fix the bounce function
+1. Fix penetration problem with bounce
+2. Change color of the ball when it moves across colors
 
 Interesting things to look into:
     - garbage collection in different programming languages

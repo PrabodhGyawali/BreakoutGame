@@ -48,6 +48,7 @@ for i in range(4):
         side_tiles.append(side_tile)
 
 pong =  pygame.Rect(400, 400, 7, 5)
+pong_color = pygame.Color(255,255,255)
 
 objects.append(player)
 objects.append(border_top)

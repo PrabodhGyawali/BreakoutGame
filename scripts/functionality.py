@@ -60,5 +60,18 @@ def store_asset(asset: pygame.Rect):
     asset.x = - 100
     asset.y = - 100
 
-
-testArray = []
+# TODO: Change color across the different color
+def color_changer(pong_color: pygame.Color):
+    if pong.y > 218 and pong.y < 218 + 1*38:
+        pong_color.update(RED[0], RED[1], RED[2])
+    elif pong.y > 218 + 1*38 and pong.y < 218 + 2*38:
+        pong_color.update(ORANGE[0], ORANGE[1], ORANGE[2])
+    elif pong.y > 218 + 2*38 and pong.y < 218 + 3*38:
+        pong_color.update(GREEN[0], GREEN[1], GREEN[2])
+    elif pong.y > 218 + 3*38 and pong.y < 218 + 4*38:
+        pong_color.update(YELLOW[0], YELLOW[1], YELLOW[2])
+    elif pong.y > 790 and y < 790 + 35:
+        pong_color.update(BLUE[0], BLUE[1], BLUE[2])
+    else:
+        pong_color.update(255,255,255)
+    

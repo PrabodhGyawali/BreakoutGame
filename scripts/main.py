@@ -36,8 +36,8 @@ while running:
     pygame.draw.rect(screen, WHITE, wall_right)
     pygame.draw.rect(screen, WHITE, border_top)
     # Game border blue
-    pygame.draw.rect(screen, BLUE, pygame.Rect(0, y*79.5, x*1, y*3))
-    pygame.draw.rect(screen, BLUE, pygame.Rect(x*62.2, y*79.5, x*1, y*3))
+    pygame.draw.rect(screen, BLUE, pygame.Rect(0, y*79, x*1, y*3.5))
+    pygame.draw.rect(screen, BLUE, pygame.Rect(x*62.2, y*79, x*1, y*3.5))
 
     # Loop generating tiles
     for i in range(4):
@@ -50,7 +50,7 @@ while running:
         
     
     # Pong Ball
-    pygame.draw.rect(screen, WHITE, pong)
+    pygame.draw.rect(screen, pong_color, pong)
     pong.move_ip(pong_velocity)
     ######################## Game Functionality #########################
     # Key Events
@@ -106,6 +106,7 @@ while running:
     update_text(screen, score, score_coord)
     update_text(screen, high_score, high_score_coord) 
     update_lives(screen, lives, lives_coord)
+    color_changer(pong_color)
     
     pygame.display.flip()
     # limit FPS to 60
