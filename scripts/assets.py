@@ -50,7 +50,6 @@ for i in range(4):
 pong =  pygame.Rect(400, 400, 7, 5)
 
 objects.append(player)
-objects.append(player_start)
 objects.append(border_top)
 
 # Text rendering

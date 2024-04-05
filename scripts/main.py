@@ -14,6 +14,7 @@ clock = pygame.time.Clock()
 # Game Variables
 running = True
 can_penetrate_tile = False
+can_bounce_paddle = True
 score = 0
 streak = 0
 accelerate_count = 0    # Check whether to increase ball speed
@@ -57,26 +58,25 @@ while running:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if player.right < 62.2*x:
-                player.move_ip(5, 0)
+                player.move_ip(10, 0)
         if keys[pygame.K_LEFT]:
             if player.left > 10:
-                player.move_ip(-5, 0)
+                player.move_ip(-10, 0)
 
     # Bouncing off objects / Breaking tiles
     for object in objects:
         if pong.colliderect(object):
-            # collision point P
-            P = (pong.x, pong.y)
             # Bounce of object by changing velocity
-            bounce(P, object, pong_velocity)
             if object == player or object == border_top:
+                print(can_bounce_paddle)
+                bounce_paddle(pong_velocity, can_bounce_paddle)
                 can_penetrate_tile = True
                 break                       # Reduces unecessary computation
             if (can_penetrate_tile):
                 for tiles in tile_array:
                     if object in tiles:
                         # Misc
-                        can_penetrate_tile = False
+                        bounce_tile(pong_velocity)
                         score += get_score_gained(object) 
                         accelerate_count += score
                         # Removing Tiles from screen

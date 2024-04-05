@@ -4,17 +4,18 @@ import random
 from assets import *
 
 # Angles and Reflection:
-def bounce(point, surface: pygame.Rect, veloctity): # Fix the bounce
-    # Check if point is in any of the surfaces.
-    # print(surface.top, surface.bottom, surface.left, surface.right)
-    if abs(point[0] - surface.left) < 2 and abs(point[0] - surface.right) < 2:
-        veloctity *= -1
-    if abs(point[0] - surface.left) < 2 or abs(point[0] - surface.right) < 2: # horizontal surface
-        veloctity[0] *= -1
-    else: #abs(point[1] - surface.top) < 2 or abs(point[1] - surface.bottom) < 2:
-        # print("reached line 16")
-        veloctity[1] *= -1
+def bounce_tile(veloctity): # Fix the bounce
+    veloctity[1] *= -1
     
+
+def bounce_paddle(velocity, can_bounce_paddle):
+    # TODO: Check if this is only for top of the surface
+    if can_bounce_paddle:
+        if random.randint(0, 1):
+            velocity[1] *= -1
+        else:
+            velocity *= -1
+        can_bounce_paddle = False
 
 def generate_coordinate():
     x = random.randint(100, 500)
@@ -46,5 +47,18 @@ def accelerate(velocity: pygame.Vector2):
 def change_paddle_size(paddle: pygame.Rect):
     if paddle.width > 15:
         paddle.width -= 5
+
+# Moves asset when not visible on screen. Avoids creating unwanted errors.
+storage = []
+storage_coord = []
+def store_asset(asset: pygame.Rect):    
+    # Log asset into the storage unit
+    storage.append(asset)
+    asset_coord = np.asarray((asset.x, asset.y))
+    storage_coord.append(asset_coord)
+
+    asset.x = - 100
+    asset.y = - 100
+
 
 testArray = []
