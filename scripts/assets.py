@@ -47,7 +47,7 @@ for i in range(4):
         )
         side_tiles.append(side_tile)
 
-pong =  pygame.Rect(400, 400, 5, 5)
+pong =  pygame.Rect(400, 400, 7, 5)
 
 objects.append(player)
 objects.append(player_start)

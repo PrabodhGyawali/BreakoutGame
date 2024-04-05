@@ -29,7 +29,7 @@ while running:
     screen.fill("black")
 
     # RENDER YOUR GAME HERE
-    pygame.draw.rect(screen, BLUE, player_start)
+    pygame.draw.rect(screen, BLUE, player)
     # Game borders 
     pygame.draw.rect(screen, WHITE, wall_left)
     pygame.draw.rect(screen, WHITE, wall_right)
@@ -71,17 +71,17 @@ while running:
             bounce(P, object, pong_velocity)
             if object == player or object == border_top:
                 can_penetrate_tile = True
-            for tiles in tile_array:
-                if object in tiles:
-                    if can_penetrate_tile:
-                        score += get_score_gained(object, streak) 
-                        streak += 1 
-                        accelerate_count +=1
+                break                       # Reduces unecessary computation
+            if (can_penetrate_tile):
+                for tiles in tile_array:
+                    if object in tiles:
+                        # Misc
+                        can_penetrate_tile = False
+                        score += get_score_gained(object) 
+                        accelerate_count += score
+                        # Removing Tiles from screen
                         tiles.remove(object)
                         objects.remove(object)
-                        can_penetrate_tile = False
-                        # TODO: Score accumulates if there is a streak
-                        print(score)
     
     # Respawn ball if it goes off boundary
     # Move Pong:
@@ -91,14 +91,15 @@ while running:
     if pong.y > DIMS[1]:
         pong.x, pong.y = generate_coordinate()
         lives += 1
-        streak = 0
         accelerate_count = 0
-        pong_velocity = [2, 2]
+        pong_velocity = np.array((2, 2))
+        player.width = x*4
     
-    # Accelerate Pong after every 10 point streak
-    if accelerate_count > 1:
-        accelerate(pong_velocity)   
+    if accelerate_count > 4:
+        accelerate(pong_velocity) 
+        change_paddle_size(player)
         accelerate_count = 0 
+    
     
     # Updates screen
     # Text rendering:
