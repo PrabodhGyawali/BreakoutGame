@@ -1,10 +1,15 @@
-1. Test for Border-top bouncing
-2. Test for Breakout scenario
-    - Pong.move_ip(pong_velocity created)
-3. Allow streak to be added to score tool       # Done
-4. Make size of the paddle smaller to make game harder
-5. Find a way to increase the velocity of the ball in a slower way
-6. Add a velocity max
+1. After paddle bounce, only one tile bounce
+    - Same with tile until is_penetrate is true
+2. Create store function when assets are not drawn to screen
+    - or remove from objects list
+
+3. Fix the bounce function
+
+Interesting things to look into:
+    - garbage collection in different programming languages
+    - freeing up memory space when game restarts
+
+
 
 Unsuccessful: Create a ball bouncing algorithm to bounce of many different angles
     - https://stackoverflow.com/questions/76687263/pygame-calculate-angle-of-reflection-of-collision-betweeen-masks
