@@ -14,14 +14,21 @@ screen = pygame.display.set_mode(DIMS)
 clock = pygame.time.Clock()
 
 # Game Variables
+test = False
 running = True
 score, accelerate_count, lives = 0, 0, 1
 high_score = get_high_score()
 
+
 while running:
+    # Flashing text timer
+    pygame.time.set_timer(pygame.USEREVENT, 500)
+    blink = True
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.USEREVENT:
+            blink = not blink
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("black")
@@ -44,23 +51,25 @@ while running:
         for tile in tile_array[i]:
             pygame.draw.rect(screen, COLORS[i], tile)
             
-    
-    
+
     # Ball configuration
     pygame.draw.rect(screen, ball_color, ball)
-    pygame.draw.circle(screen, WHITE, ball.center, ball_radius) # Inscribed invisible circle for bounce calculation
+    pygame.draw.circle(screen, ball_color, ball.center, ball_radius) # Inscribed invisible circle for bounce calculation
     ball.x += ball_speed * dx
     ball.y += ball_speed * dy
     ######################## Game Functionality #########################
     # Key Events
-    if event.type == pygame.KEYDOWN:
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT]:
-            if player.right < 62.2*x:
-                player.move_ip(10, 0)
-        if keys[pygame.K_LEFT]:
-            if player.left > 10:
-                player.move_ip(-10, 0)
+    if test:
+        player.x = ball.x
+    else:
+        if event.type == pygame.KEYDOWN:
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_RIGHT]:
+                if player.right < 62.2*x:
+                    player.move_ip(6, 0)
+            if keys[pygame.K_LEFT]:
+                if player.left > 10:
+                    player.move_ip(-6, 0)
 
     # Bouncing off walls:
     if ball.colliderect(wall_left) or ball.colliderect(wall_right):
@@ -92,7 +101,7 @@ while running:
         ball.x, ball.y = generate_coordinate()
         lives += 1
         accelerate_count = 0
-        ball_speed = 6
+        ball_speed = 3
         player.width = x*4
     
     if accelerate_count > 4:
@@ -103,9 +112,13 @@ while running:
     
     # Updates screen
     # Text rendering:
-    update_text(screen, score, score_coord)
-    update_text(screen, high_score, high_score_coord) 
+    if blink:
+        update_text(screen, score, score_coord)
+    else:
+        update_text(screen, score, (-100, -100))
+    update_text(screen, high_score, high_score_coord)
     update_lives(screen, lives, lives_coord)
+    banner(screen, "Prabbodh's Breakout Game", ball_speed)
     color_changer(ball_color)
     
     pygame.display.flip()

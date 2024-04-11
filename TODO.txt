@@ -1,9 +1,6 @@
-1. Fix penetration problem with bounce
-2. Work on a game-over state with cool animations
-    - Make sure score is always flickering
-    - 2 second delay after each death
-3. Fix bounce loop problem (adding more bounce variation)
-    https://www.youtube.com/watch?v=KDhOEqo0m38 
+1. Make score flicker --> Unsuccessful
+2. Create a test script -> using an AI bouncer that follows x of the ball -> 
+3. Add Banner with name of github that moves left to right 
 
 Interesting things to look into:
     - garbage collection in different programming languages

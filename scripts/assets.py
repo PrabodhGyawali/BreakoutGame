@@ -47,7 +47,7 @@ for i in range(4):
 ball_radius = 5
 ball_rect = int(ball_radius * 2 **0.5)
 ball =  pygame.Rect(400, 400, ball_rect, ball_rect)
-ball_speed = 6
+ball_speed = 3
 dx, dy = 1, -1 
 ball_color = pygame.Color(255,255,255)
 
@@ -56,6 +56,13 @@ font = pygame.font.Font("misc/pixel-loot.ttf", 50)
 score_coord = (100, 190)
 lives_coord = (400, 140)
 high_score_coord = (500, 190)
+
+def flash_text(screen, score, coord):
+    score_text = ('000' + str(score))[-3:]
+    text = font.render(score_text, True, WHITE, None)
+    textRect = text.get_rect()
+    textRect.center = coord
+    screen.blit(text, textRect)
 
 def update_text(screen, score, coord):
     score_text = ('000' + str(score))[-3:]
@@ -69,3 +76,19 @@ def update_lives(screen, lives, coord):
     textRect = text.get_rect()
     textRect.center = coord
     screen.blit(text, textRect)
+
+# Initialize Banner font:
+text = font.render("Prabodhcoolkid", True, WHITE, None)
+textRect = text.get_rect()
+textRect.center = (100, 60)
+def banner(screen, message, ball_speed):
+    if textRect.x > 900:
+        textRect.x = -400
+    textRect.x += ball_speed
+    screen.blit(text, textRect)
+
+# Text to display messages on top of screen:
+# 1. You Win
+# 2. Game Over
+# 3. Press Space to Start
+# 4. Banner
