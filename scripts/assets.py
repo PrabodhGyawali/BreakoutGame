@@ -6,17 +6,13 @@ pygame.init()
 x, y = 10, 10
 DIMS = (x*63.2, y*90)
 space = 4
-pong_velocity = np.array((2, 2))
-BLACK = (0, 0, 0)
-BLUE, WHITE, RED, ORANGE, GREEN, YELLOW  = (0, 141, 218), (255, 255, 255), (237,25,9), (242,133,0), (50,205,50), (255,255,0)
+BLUE, WHITE, RED, ORANGE, GREEN, YELLOW, BLACK  = (0, 141, 218), (255, 255, 255), (237,25,9), (242,133,0), (50,205,50), (255,255,0), (0, 0, 0)
 COLORS = (RED, ORANGE, GREEN, YELLOW, BLUE, WHITE)
-objects = []
 player_start = pygame.Rect(0, y*80, x*62.2, y*1.5) # Used for menu only
 player = pygame.Rect(x*2, y*80, x*4, y*1.5)
 # Game borders 
 wall_left = pygame.Rect(0, 0, x*1, y*90)
 wall_right = pygame.Rect(x*62.2, 0, x*1, y*90)
-
 border_top = pygame.Rect(0, y*8, x*63.2, y*3.5)
 
 # Loop generating tiles
@@ -25,7 +21,7 @@ tile_array = [red_tiles, orange_tiles, green_tiles, yellow_tiles]
 side_tiles = []
 side_tiles_colors = [RED, RED, ORANGE, ORANGE, GREEN, GREEN, YELLOW, YELLOW]
 # red tile has no spacing
-for j in range(2):      # CHANGE BACK TO 
+for j in range(4):     
     for k in range(1,3):
         for i in range(14):
             tile = pygame.Rect(
@@ -34,7 +30,7 @@ for j in range(2):      # CHANGE BACK TO
                 x*4, 
                 y*1.5)
             tile_array[j].append(tile)
-            objects.append(tile)
+            
 
 # Colors on side walls:
 for i in range(4):
@@ -47,14 +43,16 @@ for i in range(4):
         )
         side_tiles.append(side_tile)
 
-pong =  pygame.Rect(400, 400, 7, 5)
-pong_color = pygame.Color(255,255,255)
-
-objects.append(player)
-objects.append(border_top)
+# Ball settings (An inscribed square is used to wrap around the ball)
+ball_radius = 5
+ball_rect = int(ball_radius * 2 **0.5)
+ball =  pygame.Rect(400, 400, ball_rect, ball_rect)
+ball_speed = 6
+dx, dy = 1, -1 
+ball_color = pygame.Color(255,255,255)
 
 # Text rendering
-font = pygame.font.Font("../misc/pixel-loot.ttf", 50)
+font = pygame.font.Font("misc/pixel-loot.ttf", 50)
 score_coord = (100, 190)
 lives_coord = (400, 140)
 high_score_coord = (500, 190)

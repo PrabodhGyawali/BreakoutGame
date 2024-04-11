@@ -1,11 +1,13 @@
 1. Fix penetration problem with bounce
-2. Change color of the ball when it moves across colors
+2. Work on a game-over state with cool animations
+    - Make sure score is always flickering
+    - 2 second delay after each death
+3. Fix bounce loop problem (adding more bounce variation)
+    https://www.youtube.com/watch?v=KDhOEqo0m38 
 
 Interesting things to look into:
     - garbage collection in different programming languages
     - freeing up memory space when game restarts
-
-
 
 Unsuccessful: Create a ball bouncing algorithm to bounce of many different angles
     - https://stackoverflow.com/questions/76687263/pygame-calculate-angle-of-reflection-of-collision-betweeen-masks

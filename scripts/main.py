@@ -2,6 +2,8 @@ import pygame
 import numpy
 import random
 
+import pygame.draw_py
+
 # Custom Modules
 from assets import *
 from functionality import *
@@ -13,12 +15,7 @@ clock = pygame.time.Clock()
 
 # Game Variables
 running = True
-can_penetrate_tile = False
-can_bounce_paddle = True
-score = 0
-streak = 0
-accelerate_count = 0    # Check whether to increase ball speed
-lives = 1
+score, accelerate_count, lives = 0, 0, 1
 high_score = get_high_score()
 
 while running:
@@ -38,20 +35,22 @@ while running:
     # Game border blue
     pygame.draw.rect(screen, BLUE, pygame.Rect(0, y*79, x*1, y*3.5))
     pygame.draw.rect(screen, BLUE, pygame.Rect(x*62.2, y*79, x*1, y*3.5))
+    # Loop generating colored side tiles
+    for i in range(8):
+        pygame.draw.rect(screen, side_tiles_colors[i], side_tiles[i])
 
     # Loop generating tiles
     for i in range(4):
         for tile in tile_array[i]:
             pygame.draw.rect(screen, COLORS[i], tile)
+            
     
-    # Loop generating colored side tiles
-    for i in range(8):
-        pygame.draw.rect(screen, side_tiles_colors[i], side_tiles[i])
-        
     
-    # Pong Ball
-    pygame.draw.rect(screen, pong_color, pong)
-    pong.move_ip(pong_velocity)
+    # Ball configuration
+    pygame.draw.rect(screen, ball_color, ball)
+    pygame.draw.circle(screen, WHITE, ball.center, ball_radius) # Inscribed invisible circle for bounce calculation
+    ball.x += ball_speed * dx
+    ball.y += ball_speed * dy
     ######################## Game Functionality #########################
     # Key Events
     if event.type == pygame.KEYDOWN:
@@ -63,40 +62,41 @@ while running:
             if player.left > 10:
                 player.move_ip(-10, 0)
 
-    # Bouncing off objects / Breaking tiles
-    for object in objects:
-        if pong.colliderect(object):
-            # Bounce of object by changing velocity
-            if object == player or object == border_top:
-                print(can_bounce_paddle)
-                bounce_paddle(pong_velocity, can_bounce_paddle)
-                can_penetrate_tile = True
-                break                       # Reduces unecessary computation
-            if (can_penetrate_tile):
-                for tiles in tile_array:
-                    if object in tiles:
-                        # Misc
-                        bounce_tile(pong_velocity)
-                        score += get_score_gained(object) 
-                        accelerate_count += score
-                        # Removing Tiles from screen
-                        tiles.remove(object)
-                        objects.remove(object)
+    # Bouncing off walls:
+    if ball.colliderect(wall_left) or ball.colliderect(wall_right):
+        dx *= -1
+    # Collision with top border:
+    if ball.colliderect(border_top):
+        dy *= -1
     
-    # Respawn ball if it goes off boundary
-    # Move Pong:
-    if pong.x > 62.2*x or pong.x < 1*x:
-        pong_velocity[0] *= -1
+    # Collision with player:
+    if ball.colliderect(player):
+        dx, dy = detect_collision(dx, dy, ball, player)
 
-    if pong.y > DIMS[1]:
-        pong.x, pong.y = generate_coordinate()
+    # Collision with tiles
+    for tiles in tile_array:
+        for tile in tiles:
+            if ball.colliderect(tile):
+                # Bounce of the tile:
+                dx, dy = detect_collision(dx, dy, ball, tile)
+                score += get_score_gained(tile) 
+                accelerate_count += score
+                # Removing Tiles from screen
+                tiles.remove(tile)
+
+    hit_index = ball.collidelist(tile_array[0] + tile_array[1] + tile_array[2] + tile_array[3])
+    # Ball hits sides: if ball.x > 62.2*x or ball.x < 1*x:
+    
+    # Respawn ball / Settings if ball lost
+    if ball.y > DIMS[1]:
+        ball.x, ball.y = generate_coordinate()
         lives += 1
         accelerate_count = 0
-        pong_velocity = np.array((2, 2))
+        ball_speed = 6
         player.width = x*4
     
     if accelerate_count > 4:
-        accelerate(pong_velocity) 
+        accelerate(ball_speed) 
         change_paddle_size(player)
         accelerate_count = 0 
     
@@ -106,7 +106,7 @@ while running:
     update_text(screen, score, score_coord)
     update_text(screen, high_score, high_score_coord) 
     update_lives(screen, lives, lives_coord)
-    color_changer(pong_color)
+    color_changer(ball_color)
     
     pygame.display.flip()
     # limit FPS to 60
