@@ -52,36 +52,39 @@ dx, dy = 1, -1
 ball_color = pygame.Color(255,255,255)
 
 # Text rendering
-font = pygame.font.Font("misc/pixel-loot.ttf", 50)
+font_big = pygame.font.Font("../misc/pixel-loot.ttf", 50)
+font_small = pygame.font.Font("../misc/pixel-loot.ttf", 30)
+
 score_coord = (100, 190)
 lives_coord = (400, 140)
 high_score_coord = (500, 190)
 
 def flash_text(screen, score, coord):
     score_text = ('000' + str(score))[-3:]
-    text = font.render(score_text, True, WHITE, None)
+    text = font_big.render(score_text, True, WHITE, None)
     textRect = text.get_rect()
     textRect.center = coord
     screen.blit(text, textRect)
 
 def update_text(screen, score, coord):
     score_text = ('000' + str(score))[-3:]
-    text = font.render(score_text, True, WHITE, None)
+    text = font_big.render(score_text, True, WHITE, None)
     textRect = text.get_rect()
     textRect.center = coord
     screen.blit(text, textRect)
 
 def update_lives(screen, lives, coord):
-    text = font.render(str(lives), True, WHITE, None)
+    text = font_big.render(str(lives), True, WHITE, None)
     textRect = text.get_rect()
     textRect.center = coord
     screen.blit(text, textRect)
 
-# Initialize Banner font:
-text = font.render("Prabodhcoolkid", True, WHITE, None)
-textRect = text.get_rect()
-textRect.center = (100, 60)
+
 def banner(screen, message, ball_speed):
+    # Initialize Banner font:
+    text = font_small.render(message, True, WHITE, None)
+    textRect = text.get_rect()
+    textRect.center = (300, 60)
     if textRect.x > 900:
         textRect.x = -400
     textRect.x += ball_speed
@@ -92,3 +95,23 @@ def banner(screen, message, ball_speed):
 # 2. Game Over
 # 3. Press Space to Start
 # 4. Banner
+
+def render_game(screen, player):
+            # Render start screen
+            pygame.draw.rect(screen, BLUE, player)
+            # Game borders 
+            pygame.draw.rect(screen, WHITE, wall_left)
+            pygame.draw.rect(screen, WHITE, wall_right)
+            pygame.draw.rect(screen, WHITE, border_top)
+            # Game border blue
+            pygame.draw.rect(screen, BLUE, pygame.Rect(0, y*79, x*1, y*3.5))
+            pygame.draw.rect(screen, BLUE, pygame.Rect(x*62.2, y*79, x*1, y*3.5))
+            # Loop generating colored side tiles
+            for i in range(8):
+                pygame.draw.rect(screen, side_tiles_colors[i], side_tiles[i])
+            
+            # Loop generating tiles
+            for i in range(4):
+                for tile in tile_array[i]:
+                    pygame.draw.rect(screen, COLORS[i], tile)
+        
