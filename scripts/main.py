@@ -14,13 +14,11 @@ clock = pygame.time.Clock()
 running = True
 # State Variables
 test, has_started = False, False
-# Misc Variables
-score, accelerate_count, lives = 0, 0, 1
-high_score = get_high_score()
-
 
 while running:
-
+    # Misc Variables
+    score, accelerate_count, lives = 0, 0, 5
+    high_score = int(get_high_score())
     # Starting Screen -> bouncing ball
     while not has_started:
         for event in pygame.event.get():
@@ -57,14 +55,14 @@ while running:
                 if ball.colliderect(tile):
                     # Bounce of the tile:
                     dx, dy = detect_collision(dx, dy, ball, tile)
-                    score += get_score_gained(tile) 
-                    accelerate_count += score
+                    ball_speed = random.choice([3,4,6,8])
                 
         pygame.display.flip()
-        # Debugging:
-        clock.tick(60)
+        
+        clock.tick(80)
+    ball.x, ball.y = generate_coordinate()
+    FPS = 30
     while has_started:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -78,7 +76,7 @@ while running:
         pygame.draw.rect(screen, ball_color, ball)
         pygame.draw.circle(screen, ball_color, ball.center, ball_radius) # Inscribed invisible circle for bounce calculation
         ball.x += ball_speed * dx
-        ball.y += ball_speed * dy
+        ball.y -= ball_speed * dy
         ######################## Game Functionality #########################
         # Key Events
         if test:
@@ -115,26 +113,40 @@ while running:
                     # Removing Tiles from screen
                     tiles.remove(tile)
 
-        hit_index = ball.collidelist(tile_array[0] + tile_array[1] + tile_array[2] + tile_array[3])
-        # Ball hits sides: if ball.x > 62.2*x or ball.x < 1*x:
+        # hit_index = ball.collidelist(tile_array[0] + tile_array[1] + tile_array[2] + tile_array[3])
         
         # Respawn ball / Settings if ball lost
         if ball.y > DIMS[1]:
+            # Check for loss
+            if lives == 5:
+                if score > high_score: 
+                    banner(screen, "New High Score", ball_speed)
+                    new_high_score(score) 
+                else:
+                    banner(screen, "You Lose!", ball_speed)
+                    
+                has_started = False  # Back to start screen
+            # Ball config reset
             ball.x, ball.y = generate_coordinate()
-            lives += 1
+            FPS = 30
+            lives += 1 # MISC
             accelerate_count = 0
             ball_speed = 3
-            player.width = x*4
+            player.width = x*4  # player reset
         
         if accelerate_count > 4:
-            accelerate(ball_speed) 
-            change_paddle_size(player)
+            if FPS <= 80:
+                FPS += 5 
+            if random.choice([True, False]):
+                change_paddle_size(player)
             accelerate_count = 0 
         
+        # Check for Loss or Win
+
         
         # Updates screen
         # Text rendering:
-        update_text(screen, score, (-100, -100))
+        update_text(screen, score, score_coord)
         update_text(screen, high_score, high_score_coord)
         update_lives(screen, lives, lives_coord)
         banner(screen, "Prabbodh's Breakout Game", ball_speed)
@@ -142,7 +154,7 @@ while running:
         
         pygame.display.flip()
         # limit FPS to 60
-        clock.tick(60)
+        clock.tick(FPS)
 
 pygame.quit()
 

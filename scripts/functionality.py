@@ -30,6 +30,10 @@ def get_high_score():
     with open("../misc/high_score.txt", "r") as f:
         return f.read()
     
+def new_high_score(score):
+    with open("../misc/high_score.txt", "w") as f:
+        f.write(str(score))
+    
 def get_score_gained(tile: pygame.Rect):
     if tile in red_tiles:
         return 7
@@ -39,14 +43,6 @@ def get_score_gained(tile: pygame.Rect):
         return 3
     if tile in yellow_tiles:
         return 1 
-    
-def accelerate(speed):
-    if speed < 7:
-        try:
-            speed *= 4/3 
-        except TypeError:
-            print("TypeError at line 42 is caught")
-    print(speed)
 
 def change_paddle_size(paddle: pygame.Rect):
     if paddle.width > 20:

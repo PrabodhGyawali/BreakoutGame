@@ -90,11 +90,6 @@ def banner(screen, message, ball_speed):
     textRect.x += ball_speed
     screen.blit(text, textRect)
 
-# Text to display messages on top of screen:
-# 1. You Win
-# 2. Game Over
-# 3. Press Space to Start
-# 4. Banner
 
 def render_game(screen, player):
             # Render start screen
