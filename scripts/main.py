@@ -1,5 +1,4 @@
 import pygame
-
 import pygame.draw_py
 
 # Custom Modules
@@ -13,7 +12,10 @@ clock = pygame.time.Clock()
 
 running = True
 # State Variables
-test, has_started = False, False
+test, has_started = True, False
+
+# Starting banner message:
+banner_message = "Press Space to Start"
 
 while running:
     # Misc Variables
@@ -28,16 +30,17 @@ while running:
             if event.type == pygame.QUIT:
                 running = False
         screen.fill("black")
-        banner(screen, "Press Space to Start", 0)
+        banner(screen, banner_message, 0)
         
         render_game(screen, player_start)
+
         # Ball configuration
         pygame.draw.rect(screen, ball_color, ball)
         pygame.draw.circle(screen, ball_color, ball.center, ball_radius) # Inscribed invisible circle for bounce calculation
         ball.x += ball_speed * dx
-        ball.y += ball_speed * dy
+        ball.y -= ball_speed * dy
 
-        ######################## Start Functionality #########################
+
         # Bouncing off walls:
         if ball.colliderect(wall_left) or ball.colliderect(wall_right):
             dx *= -1
@@ -60,6 +63,7 @@ while running:
         pygame.display.flip()
         
         clock.tick(80)
+    # Reset ball and settings
     ball.x, ball.y = generate_coordinate()
     FPS = 30
     while has_started:
@@ -80,6 +84,7 @@ while running:
         ######################## Game Functionality #########################
         # Key Events
         if test:
+            FPS = 120
             player.x = ball.x
         else:
             if event.type == pygame.KEYDOWN:
@@ -112,18 +117,16 @@ while running:
                     accelerate_count += score
                     # Removing Tiles from screen
                     tiles.remove(tile)
-
-        # hit_index = ball.collidelist(tile_array[0] + tile_array[1] + tile_array[2] + tile_array[3])
         
         # Respawn ball / Settings if ball lost
         if ball.y > DIMS[1]:
             # Check for loss
             if lives == 5:
                 if score > high_score: 
-                    banner(screen, "New High Score", ball_speed)
+                    banner_message = "New Highscore"
                     new_high_score(score) 
                 else:
-                    banner(screen, "You Lose!", ball_speed)
+                    banner_message = "You Lose! Try Again"
                     
                 has_started = False  # Back to start screen
             # Ball config reset
@@ -141,8 +144,11 @@ while running:
                 change_paddle_size(player)
             accelerate_count = 0 
         
-        # Check for Loss or Win
-
+        # Check for Win
+        total_tiles = tile_array[0] + tile_array[1] + tile_array[2] + tile_array[3]
+        if len(total_tiles) == 0:
+            banner(screen, "You win!", ball_speed)
+            has_started = False
         
         # Updates screen
         # Text rendering:
@@ -153,7 +159,6 @@ while running:
         color_changer(ball_color)
         
         pygame.display.flip()
-        # limit FPS to 60
         clock.tick(FPS)
 
 pygame.quit()
